@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer management System</title>
+    <script src="jquery.min.js"></script>
+    
+</head>
+<body>
+    <h1>Add</h1>
+    <form id="customerForm"></form>
+        <label for="first name">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="middle name">Middle Name:</label>
+        <input type="text" id="middleName" name="firstName" required><br><br>
+
+        <label for="last name">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="Mobile Number">Mobile Number:</label>
+        <input type="number" id="mobilenumber" name="middleName" required><br><br>
+
+        <label for="emailId">emailId:</label>
+        <input type="text" id="emailId" name="emailId" required><br><br>
+
+        <label for="local address">Local Address:</label>
+        <input type="text" id="LocalAddress" name="LocalAddress" required><br><br>
+
+        <label for="local address district">Local Address District:</label>
+        <input type="text" id="LocalAddressDistrict" name="LocalAddressDistrict" required><br><br>
+
+        <label for="local address state">Local Address State:</label>
+        <input type="text" id="LocalAddressState" name="LocalAddressState" required><br><br>
+
+        <label for="permanent address">Permanent Address:</label>
+        <input type="text" id="permanent address" name="PermanentAddress" required><br><br>
+
+        <label for="permanent country">Permanent Country:</label>
+        <input type="text" id="permanent country" name="PermanentCountry" required><br><br>
+
+        <label for="permanent State">Permanent State:</label>
+        <input type="text" id="permanent state" name="PermanentState" required><br><br>
+
+        <label for="permanent district">Permanent District:</label>
+        <input type="text" id="permanent district" name="PermanentDistrict" required><br><br>
+        
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="Registered">Registered</option>
+            <option value="Booked">Booked</option>
+            <option value="Cancelled">Cancelled</option>
+        </select><br>
+        
+        <button id="saveButton">Save</button>
+    </form>
+
+    <h2>Customer List</h2>
+    <ul id="customerList"></ul>
+
+    <script src="custom.js"></script>
+    
+    
+        
+
+
+
+    
+</body>
+</html>
