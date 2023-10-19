@@ -1,0 +1,204 @@
+<html>
+<head>
+    <title>Customer Database</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        var hostUrl = 'http://localhost:8080';
+
+        $(document).ready(homeFunction());
+
+        function homeFunction() {
+            // URL of the API
+            $('#customer-table tbody').empty();
+            // Function to fetch data from the API and populate the table
+            $.get(hostUrl + '/api/customers', function (data) {
+                data = JSON.parse(data)
+                data.forEach(function (item) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(item.customerId));
+                    row.append($('<td>').text(item.customerFname));
+                    row.append($('<td>').text(item.customerMname));
+                    row.append($('<td>').text(item.customerLname));
+                    row.append($('<td>').text(item.mobile));
+                    row.append($('<td>').text(item.email));
+                    row.append($('<td>').text(item.lAddress));
+                    row.append($('<td>').text(item.lAddressDist));
+                    row.append($('<td>').text(item.lAddressState));
+                    row.append($('<td>').text(item.lAddressCountry));
+                    row.append($('<td>').text(item.pAddress));
+                    row.append($('<td>').text(item.pAddressDist));
+                    row.append($('<td>').text(item.pAddressState));
+                    row.append($('<td>').text(item.pAddressCountry));
+                    row.append($('<td>').text(item.status));
+
+                    $('#customer-table tbody').append(row);
+                });
+            });
+        }
+
+        function openForm() {
+            document.getElementById("dataForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("dataForm").style.display = "none";
+        }
+
+        function addDataToTable() {
+            // Get data from the form
+            var data = {
+                customerFname: document.getElementById("fName").value,
+                customerMname: document.getElementById("mName").value,
+                customerLname: document.getElementById("lName").value,
+                mobile: parseInt(document.getElementById("mobile").value),
+                email: document.getElementById("email").value,
+                lAddress: document.getElementById("lAddress").value,
+                lAddressDist: document.getElementById("lAddrDistrict").value,
+                lAddressState: document.getElementById("lAddrState").value,
+                lAddressCountry: document.getElementById("lAddrCountry").value,
+                pAddress: document.getElementById("pAddress").value,
+                pAddressDist: document.getElementById("pAddrDistrict").value,
+                pAddressState: document.getElementById("pAddrState").value,
+                pAddressCountry: document.getElementById("pAddrCountry").value,
+                status: document.getElementById("status").value
+            };
+
+            $.ajax({
+                type: "POST",
+                url: hostUrl + '/api/customer',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log("Data posted successfully");
+                    // Handle the response from the server
+                },
+                error: function (error) {
+                    console.error("Error posting data:", error);
+                }
+            });
+
+            // Clear the form
+            document.getElementById("addDataForm").reset();
+
+            // Close the form
+            closeForm();
+
+            homeFunction();
+        }
+
+        function downloadFile() {
+            // Define the file URL and name
+            var fileURL = hostUrl + '/api/download'; // Replace with the actual file URL
+            var fileName = 'Customers.csv'; // Replace with the desired file name
+
+
+            var $link = $('<a>', {
+                href: fileURL,
+                download: fileName,
+                style: 'display:none'
+            });
+
+
+            $('body').append($link);
+
+
+            $link[0].click();
+
+
+            $link.remove();
+        }
+    </script>
+</head>
+
+<body>
+<table id="customer-table" border="1">
+    <thead>
+    <tr>
+        <th>Customer Id</th>
+        <th>Customer First Name</th>
+        <th>Customer Middle Name</th>
+        <th>Customer Last Name</th>
+        <th>Customer Mobile</th>
+        <th>Customer Email</th>
+        <th>Customer Local Address</th>
+        <th>Customer Local Addr District</th>
+        <th>Customer Local Addr State</th>
+        <th>Customer Local Addr Country</th>
+        <th>Customer Permanent Address</th>
+        <th>Customer Permanent Addr District</th>
+        <th>Customer Permanent Addr State</th>
+        <th>Customer Permanent Addr Country</th>
+        <th>Customer Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Data will be populated here -->
+    </tbody>
+</table>
+
+<div>
+    <br>
+    <button onclick="openForm()">Add Customer</button>
+    <button onclick="downloadFile()">Download File</button>
+</div>
+
+
+<div id="dataForm" style="display: none;">
+    <form id="addDataForm">
+        <label for="fName">Customer First Name:</label>
+        <input type="text" id="fName" name="fName" required><br>
+
+        <label for="mName">Customer Middle Name:</label>
+        <input type="text" id="mName" name="mName" required><br>
+
+        <label for="lName">Customer Last Name:</label>
+        <input type="text" id="lName" name="lName" required><br>
+
+        <label for="mobile">Customer Mobile:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
+
+        <label for="email">Customer Email:</label>
+        <input type="text" id="email" name="email" required><br>
+
+        <label for="lAddress">Customer Local Address:</label>
+        <input type="text" id="lAddress" name="lAddress" required><br>
+
+        <label for="lAddrDistrict">Customer Local Addr District:</label>
+        <input type="text" id="lAddrDistrict" name="lAddrDistrict" required><br>
+
+        <label for="lAddrState">Customer Local Addr State:</label>
+        <input type="text" id="lAddrState" name="lAddrState" required><br>
+
+        <label for="lAddrCountry">Customer Local Addr Country:</label>
+        <input type="text" id="lAddrCountry" name="lAddrCountry" required><br>
+
+        <label for="pAddress">Customer Permanent Address:</label>
+        <input type="text" id="pAddress" name="pAddress" required><br>
+
+        <label for="pAddrDistrict">Customer Permanent Addr District:</label>
+        <input type="text" id="pAddrDistrict" name="pAddrDistrict" required><br>
+
+        <label for="pAddrState">Customer Permanent Addr State:</label>
+        <input type="text" id="pAddrState" name="pAddrState" required><br>
+
+        <label for="pAddrCountry">Customer Permanent Addr Country:</label>
+        <input type="text" id="pAddrCountry" name="pAddrCountry" required><br>
+
+        <label for="status">Customer Status:</label>
+        <select id="status" name="status">
+            <option value="Registered">Registered</option>
+            <option value="Booked">Booked</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+
+        <div>
+            <br>
+            <input type="button" value="Add" onclick="addDataToTable()">
+            <input type="button" value="Cancel" onclick="closeForm()">
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

@@ -3,7 +3,11 @@
   <groupId>com.ty</groupId>
   <artifactId>customerproject1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
+    <packaging>pom</packaging>
+    <modules>
+        <module>solution</module>
+    </modules>
+    <dependencies>
   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 <dependency>
     <groupId>mysql</groupId>
